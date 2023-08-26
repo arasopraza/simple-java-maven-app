@@ -23,9 +23,23 @@ node {
             }
         }
 
+        stage('Approval') {
+            input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
+        }
+
         // Deliver Stage
-        stage('Deliver') {
+        stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
+        }
+
+        // Sleep for 1 minute
+        stage('Pause') {
+            sleep time: 1, unit: 'MINUTES'
+        }
+
+        // Completion Stage
+        stage('Completion') {
+            echo 'Eksekusi pipeline sukses!'
         }
     }
 }
