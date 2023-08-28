@@ -23,17 +23,13 @@ node {
             }
         }
 
-        stage('Approval') {
+        stage('Manual Approval') {
             input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
         }
 
         // Deliver Stage
         stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
-        }
-
-        // Sleep for 1 minute
-        stage('Pause') {
             sleep time: 1, unit: 'MINUTES'
         }
 
